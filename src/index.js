@@ -1,5 +1,6 @@
 import YTSearch from 'youtube-api-search';
 
+import App from './app.js';
 import VideoCollectionView from './views/video_collection_view';
 import VideoLayout from './views/video_layout';
 import VideoSelected from './views/video_selected';
@@ -11,6 +12,8 @@ const videoSearch = (id) => {
     YTSearch({key: API_KEY, term: id}, (videos) => {
 
         console.log(videos);
+
+        if (!videos.length) return false;
 
         let collection = [];
 
@@ -29,7 +32,8 @@ const videoSearch = (id) => {
 
         let selectedView = new VideoSelected({model: new Backbone.Model(collection[0])});
 
-        let layout = new VideoLayout();
+
+        let layout = new VideoLayout().render();
 
         App.mainRegion.show(layout);
         layout.showChildView('list', collectionView);
@@ -40,12 +44,8 @@ const videoSearch = (id) => {
 const changeHash = () => {
     $(document).on('click', 'button.btn', (event)=>{
        router.navigate($('input[name="search"]').val(), {trigger: true, replace: true});
-    })
+   })
 };
-
-
-const App = new Marionette.Application();
-
 
 App.addRegions({
     "mainRegion": "#main"
