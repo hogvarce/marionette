@@ -1,4 +1,4 @@
-import App from './app.js';
+import App from './app';
 import VideoRequest from './views/video_request';
 
 App.addRegions({
@@ -6,7 +6,7 @@ App.addRegions({
 });
 
 App.on('start', function() {
-  Backbone.history.start();
+    Backbone.history.start();
 });
 
 let videoRequest = new VideoRequest();

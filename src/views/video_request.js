@@ -1,11 +1,12 @@
 import YTSearch from 'youtube-api-search';
-import App from '../app.js';
+import App from '../app';
 import VideoCollectionView from './video_collection_view';
 import VideoLayout from './video_layout';
 import VideoSelected from './video_selected';
 // вью одного видео
 const API_KEY = 'AIzaSyB7Oa57QXJwmPTHBedbChar8_BGFG3xNLo';
-
+let collection = [];
+let layout;
 const VideoRequest = Marionette.ItemView.extend({
   el: '#VideoRequest',
   hash: '',
@@ -27,8 +28,6 @@ const VideoRequest = Marionette.ItemView.extend({
 
           if (!videos.length) return false;
 
-          let collection = [];
-
           for (let video in videos){
               collection.push({
                   id: videos[video].id.videoId,
@@ -44,8 +43,7 @@ const VideoRequest = Marionette.ItemView.extend({
 
           let selectedView = new VideoSelected({model: new Backbone.Model(collection[0])});
 
-
-          let layout = new VideoLayout().render();
+          layout = new VideoLayout().render();
 
           App.mainRegion.show(layout);
           layout.showChildView('list', collectionView);
@@ -53,5 +51,5 @@ const VideoRequest = Marionette.ItemView.extend({
       });
   }
 });
-
+export {layout, collection};
 export default VideoRequest;

@@ -1,3 +1,5 @@
+import VideoSelected from './video_selected';
+import {layout, collection} from './video_request';
 // вью одного видео
 const VideoItemView = Marionette.ItemView.extend({
   template: '#item-template',
@@ -5,12 +7,9 @@ const VideoItemView = Marionette.ItemView.extend({
       'click': 'changeView'
   },
   changeView: function(){
-      let desc = this.model.attributes.desc;
-      let idVideo = this.model.attributes.id;
-      let title = this.model.attributes.title;
-      $('#selected iframe').attr('src','https://www.youtube.com/embed/'+idVideo);
-      $('#selected p').text(desc);
-      $('#selected h1').text(title);
+      let inx = this.$el.index();
+      let selectedView = new VideoSelected({model: new Backbone.Model(collection[inx])});
+      layout.showChildView('selected', selectedView);
   }
 });
 
