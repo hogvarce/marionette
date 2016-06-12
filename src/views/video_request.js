@@ -5,8 +5,8 @@ import VideoLayout from './video_layout';
 import VideoSelected from './video_selected';
 // вью одного видео
 const API_KEY = 'AIzaSyB7Oa57QXJwmPTHBedbChar8_BGFG3xNLo';
-let collection = [];
-let layout;
+
+let collection, layout;
 const VideoRequest = Marionette.ItemView.extend({
   el: '#VideoRequest',
   hash: '',
@@ -27,6 +27,8 @@ const VideoRequest = Marionette.ItemView.extend({
       YTSearch({key: API_KEY, term: request}, (videos) => {
 
           if (!videos.length) return false;
+
+          collection = [];
 
           for (let video in videos){
               collection.push({
@@ -51,5 +53,5 @@ const VideoRequest = Marionette.ItemView.extend({
       });
   }
 });
-export {layout, collection};
+export {collection, layout};
 export default VideoRequest;
