@@ -1,5 +1,6 @@
 import VideoSelected from './video_selected';
 import {layout, collection} from './video_request';
+const vent = _.extend({}, Backbone.Events);
 // вью одного видео
 const VideoItemView = Marionette.ItemView.extend({
   template: '#item-template',
@@ -7,10 +8,8 @@ const VideoItemView = Marionette.ItemView.extend({
       'click': 'changeView'
   },
   changeView: function(){
-      let inx = this.$el.index();
-      let selectedView = new VideoSelected({model: new Backbone.Model(collection[inx])});
-      layout.showChildView('selected', selectedView);
+      vent.trigger('changeView', this.model);
   }
 });
-
+export {vent};
 export default VideoItemView;
