@@ -6,14 +6,17 @@ const VideoSelected = Marionette.ItemView.extend({
         vent.on('changeView', this.change, this);
     },
     modelEvents: {
-        'change': 'reRender'
-    },
-    change: function(model){
-        this.$el.empty();
-        this.model.set(model);
+        'change': 'render'
     },
     reRender: function(){
-        this.render();
+
+    },
+    change: function(model){
+        this.model.set({
+            id: model.attributes.id,
+            title: model.attributes.title,
+            desc: model.attributes.desc
+        });
     }
 });
 
